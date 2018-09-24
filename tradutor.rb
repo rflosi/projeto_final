@@ -36,13 +36,11 @@ class Tradutor
 
     # Acessa API e traduz o texto baseado nas línguas escolhidas
     def traduz_texto(texto, linguas)
-        response = RestClient.get(@url, params: {
+        RestClient.get(@url, params: {
             key: @ApiKey,
             text: texto,
             lang: linguas
-        });
-
-        return response.body
+        }) {|response| return response.body};
     end
 
     def registra_operacao(lang, entrada, saida)
@@ -119,7 +117,7 @@ class Tradutor
 
                 puts
                 puts  '0 - Para listar as possíveis línguas'
-                puts  'ou qualquer outra tecla para ignorar.'
+                puts  'ou <ENTER> para ignorar.'
                 puts
                 print 'Sua Opção: '
                 lista = gets.chomp
@@ -129,7 +127,7 @@ class Tradutor
                     puts
                     puts @lingua.keys 
                     puts
-                    puts  'Qualquer tecla para continuar.'
+                    puts  '<ENTER> para continuar.'
                     gets.chomp
                 end
                 break

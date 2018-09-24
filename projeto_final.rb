@@ -60,28 +60,12 @@ loop do
     puts "\n"
 
     # Imprime Status da Tradução
-    print '*** '
-    case saida["code"].to_i
-        when 401
-            puts 'Invalid API key'
-        when 402
-            puts 'Blocked API key'
-        when 404
-            puts 'Exceeded the daily limit on the amount of translated text'
-        when 413
-            puts 'Exceeded the maximum text size'
-        when 422
-            puts 'The text cannot be translated'
-        when 501
-            puts 'The specified translation direction is not supported'
-        when 200
-            puts 'Operation completed successfully'
-        else
-            puts 'Operação com Resultado Desconhecido'
-    end
+    mensagem = saida["message"]
+    mensagem = 'Operação Completada com Sucesso' if (saida["code"] == 200) 
+    puts '*** ' + saida["code"].to_s + ' = ' + mensagem
 
     # Imprime e Grava Resultado da Tradução
-    if (saida["code"].to_i == 200)
+    if (saida["code"] == 200)
         puts "\n"
         print 'Resultado: '
         puts saida["text"]
@@ -93,7 +77,7 @@ loop do
     # Verifica se Encerra ou Continua Processo
     puts "\n"
     puts  '0 - Para Encerrar Processo'
-    puts  'ou qualquer outra tecla para continuar.'
+    puts  'ou <ENTER> para continuar.'
     puts
     print 'Sua Opção: '
     encerra = gets.chomp
