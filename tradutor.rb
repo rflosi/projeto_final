@@ -86,7 +86,7 @@ class Tradutor
     def obtem_key
         loop do
             system "clear"
-            puts '********** OBTENÇÃO DA API KEY **********'
+            puts '********** ENTRADA DA API KEY **********'
             puts
             puts '0 - Para encerrar'
             puts 'ou entre com a API Key.'
