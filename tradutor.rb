@@ -1,3 +1,4 @@
+require 'json'
 require 'rest-client'
 require 'active_support/all'
 Time.zone = 'America/Sao_Paulo'
@@ -28,8 +29,8 @@ class Tradutor
         system "clear"
         puts '********** TRADUTOR DE TEXTOS **********'
         puts
-        puts 'Língua Origem...: ' + ling_origem.to_s + ' = ' + origem.to_s
-        puts 'Língua Alvo.....: ' + ling_alvo.to_s   + ' = ' + alvo.to_s
+        puts 'Língua Origem...: ' + ling_origem + ' = ' + origem.to_s
+        puts 'Língua Alvo.....: ' + ling_alvo   + ' = ' + alvo.to_s
         puts mensagem.to_s
         puts
     end
@@ -58,6 +59,18 @@ class Tradutor
         puts
     end
 
+    def verifica_encerramento_processo
+        # Verifica se Encerra ou Continua Processo
+        puts "\n"
+        puts  '0 - Para Encerrar Processo'
+        puts  'ou <ENTER> para continuar.'
+        puts
+        print 'Sua Opção: '
+        encerra = gets.chomp
+        # Encerra Processo
+        encerra_processo if (encerra == '0')
+    end
+    
     def encerra_processo
         puts "\n"
         puts '*** Processo Encerrado'
@@ -67,23 +80,37 @@ class Tradutor
 
 
 
+
     private
 
     def obtem_key
-        system "clear"
-        puts '********** OBTENÇÃO DA API KEY **********'
-        puts
-        puts '0 - Para encerrar'
-        puts 'ou entre com a API Key.'
-        puts
-        print 'Sua Opção: '
-        @ApiKey = gets.chomp
-    
-        encerra_processo if (@ApiKey == '0')
+        loop do
+            system "clear"
+            puts '********** OBTENÇÃO DA API KEY **********'
+            puts
+            puts '0 - Para encerrar'
+            puts 'ou entre com a API Key.'
+            puts
+            print 'Sua Opção: '
+            @ApiKey = gets.chomp
+        
+            encerra_processo if (@ApiKey == '0')
 
-        @url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
+            @url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
 
-        system "clear"
+            # Testa validade da API Key
+            saida = JSON.parse(traduz_texto('Alô Mundo!!!', 'pt-en'))
+
+            break if (saida["code"] == 200)
+
+            # Imprime Status do Teste da API Key
+            puts
+            puts '*** ' + saida["code"].to_s + ' = ' + saida["message"]
+            puts
+
+            # Verifica se Encerra ou Continua Processo
+            verifica_encerramento_processo
+        end
     end
 
     # cria Hash baseado no arquivo texto de possíveis linguas

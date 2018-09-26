@@ -1,5 +1,4 @@
 require_relative './tradutor'
-require 'json'
 
 # Instancia Classe Tradutora informando arquivo de línguas disponíveis
 conversao = Tradutor.new
@@ -75,15 +74,7 @@ loop do
     end
 
     # Verifica se Encerra ou Continua Processo
-    puts "\n"
-    puts  '0 - Para Encerrar Processo'
-    puts  'ou <ENTER> para continuar.'
-    puts
-    print 'Sua Opção: '
-    encerra = gets.chomp
-
-    # Encerra Processo
-    conversao.encerra_processo if (encerra == '0')
+    conversao.verifica_encerramento_processo
 
 end
 
