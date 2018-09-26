@@ -18,7 +18,7 @@ loop do
         print 'Sua Opção: '
         origem = gets.chomp
 
-        conversao.encerra_processo() if (origem == '0')
+        conversao.encerra_processo if (origem == '0')
 
         ling_origem = conversao.pesquisa_ling(origem)
         mensagem = conversao.testa_ling(ling_origem)
