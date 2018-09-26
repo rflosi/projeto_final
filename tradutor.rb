@@ -1,12 +1,14 @@
-require 'json'
 require 'rest-client'
+require 'json'
 require 'active_support/all'
 Time.zone = 'America/Sao_Paulo'
 
 class Tradutor
-    # Inicializa o Hash de linguas
+    
     def initialize
+        # Entrada da Key de acesso à API
         obtem_key
+        # Inicializa o Hash de linguas
         cria_linguas
     end
 
@@ -44,10 +46,13 @@ class Tradutor
         }) {|response| return response.body};
     end
 
+    # Grava dados da Operação em arquivo texto
     def registra_operacao(lang, entrada, saida)
+        # Monta nome do arquivo texto
         time = Time.zone.now
         arquivo = time.strftime('%y-%m-%d_%H-%M') + '.txt'
 
+        # Grava Registros
         File.open(arquivo, 'w') do |line|
             line.puts(lang)
             line.puts(entrada)
@@ -59,8 +64,8 @@ class Tradutor
         puts
     end
 
+    # Verifica se Encerra ou dá Continuidade ao Processo
     def verifica_encerramento_processo
-        # Verifica se Encerra ou Continua Processo
         puts "\n"
         puts  '0 - Para Encerrar Processo'
         puts  'ou <ENTER> para continuar.'
@@ -71,6 +76,7 @@ class Tradutor
         encerra_processo if (encerra == '0')
     end
     
+    # Encerramento de Processo
     def encerra_processo
         puts "\n"
         puts '*** Processo Encerrado'
@@ -78,11 +84,11 @@ class Tradutor
         exit
     end
 
-
-
-
+# -----------------------------------------------------------------------------
+    
     private
 
+    # Entrada e Teste de validade da Key de Acesso à API
     def obtem_key
         loop do
             system "clear"
@@ -96,6 +102,7 @@ class Tradutor
         
             encerra_processo if (@ApiKey == '0')
 
+            # Carrega a url de acesso à API
             @url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
 
             puts
@@ -129,6 +136,7 @@ class Tradutor
 
             encerra_processo if (opcao == '0')
 
+            # Indica arquivo texto de línguas determinado
             lingua = ''
             lingua = 'lingua-W3-ENG.txt' if (opcao == '1')
             lingua = 'lingua-POR.txt'    if (opcao == '2')

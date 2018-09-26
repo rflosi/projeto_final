@@ -1,6 +1,6 @@
 require_relative './tradutor'
 
-# Instancia Classe Tradutora informando arquivo de línguas disponíveis
+# Instancia Classe Tradutora
 conversao = Tradutor.new
 
 loop do
@@ -20,6 +20,7 @@ loop do
 
         conversao.encerra_processo if (origem == '0')
 
+        # Testa a existência da Língua de Origem digitada
         ling_origem = conversao.pesquisa_ling(origem)
         mensagem = conversao.testa_ling(ling_origem)
 
@@ -37,6 +38,7 @@ loop do
 
         conversao.encerra_processo if (alvo == '0')
         
+        # Testa a existência da Língua Alvo digitada
         ling_alvo = conversao.pesquisa_ling(alvo)
         mensagem = conversao.testa_ling(ling_alvo, ling_origem)
 
@@ -55,7 +57,7 @@ loop do
 
     puts
     puts '--- Aguarde, processando...'
-    # Tradução
+    # Processa Tradução
     linguas = ling_origem + '-' + ling_alvo
     saida = JSON.parse(conversao.traduz_texto(entrada, linguas))
 
