@@ -54,7 +54,7 @@ Hauçá	ha
 Hebraico	he
 Hebraico    iw
 Hindi	hi
-Holândes	nl
+Holandês	nl
 Húngaro	hu
 Iídiche	ji
 Iídiche	yi
