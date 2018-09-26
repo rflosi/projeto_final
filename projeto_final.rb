@@ -53,10 +53,11 @@ loop do
 
     conversao.encerra_processo if (entrada == '0')
 
+    puts
+    puts '--- Aguarde, processando...'
     # Tradução
     linguas = ling_origem + '-' + ling_alvo
     saida = JSON.parse(conversao.traduz_texto(entrada, linguas))
-    puts "\n"
 
     # Imprime Status da Tradução
     mensagem = saida["message"]

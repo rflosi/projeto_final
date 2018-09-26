@@ -98,13 +98,14 @@ class Tradutor
 
             @url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
 
+            puts
+            puts '--- Aguarde, processando...'
             # Testa validade da API Key
             saida = JSON.parse(traduz_texto('Alô Mundo!!!', 'pt-en'))
 
             break if (saida["code"] == 200)
 
             # Imprime Status do Teste da API Key
-            puts
             puts '*** ' + saida["code"].to_s + ' = ' + saida["message"]
             puts
 
